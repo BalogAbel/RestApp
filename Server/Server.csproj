@@ -92,7 +92,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\UserDto.cs" />
     <Compile Include="Model\Guest.cs" />
     <Compile Include="Model\Owner.cs" />
     <Compile Include="Model\Reservation.cs" />

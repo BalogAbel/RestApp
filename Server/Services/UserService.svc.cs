@@ -20,13 +20,21 @@ namespace Server.Services
                 User newUser = null;
                 if (asOwner)
                 {
-                    U
+                    newUser = new Owner
+                    {
+                        Name = userName,
+                        Password = password
+                    };
                 }
-                ctx.Users.Add(new User
+                else
                 {
-                    Name = userName,
-                    Password = password
-                });
+                    newUser = new Guest
+                    {
+                        Name = userName,
+                        Password = password
+                    };
+                }
+                ctx.Users.Add(newUser);
                 ctx.SaveChanges();
             }
         }
@@ -41,7 +49,7 @@ namespace Server.Services
                 {
                     throw new FaultException<BadLoginCredentialsException>(new BadLoginCredentialsException());
                 }
-                user.Token = new Guid();
+                user.Token = Guid.NewGuid();
                 ctx.SaveChanges();
                 return user.Token.ToString();
             }

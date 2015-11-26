@@ -9,7 +9,7 @@ namespace Server.Services
     {
         [OperationContract]
         [FaultContract(typeof (AlreadyRegisteredException))]
-        void RegisterUser(string userName, string password);
+        void RegisterUser(string userName, string password, bool asOwner);
 
         [OperationContract]
         [FaultContract(typeof (BadLoginCredentialsException))]
