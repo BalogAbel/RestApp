@@ -1,5 +1,6 @@
-using System.ComponentModel.Composition;
-
-namespace RestApp {
-    public interface IShell {}
+namespace RestApp
+{
+    public interface IShell
+    {
+    }
 }

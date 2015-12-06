@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.ServiceModel;
+using Server.DTO;
+using Server.Exceptions;
 using Server.Model;
-using Server.Services.Exceptions;
 
 namespace Server.Services
 {
     public class UserService : IUserService
     {
-        public void RegisterUser(string userName, string password, bool asOwner = false)
+        public UserDto RegisterUser(string userName, string password)
         {
             using (var ctx = new RestAppDbContext())
             {
@@ -17,29 +18,18 @@ namespace Server.Services
                 {
                     throw new FaultException<AlreadyRegisteredException>(new AlreadyRegisteredException());
                 }
-                User newUser = null;
-                if (asOwner)
+                var newUser = new User
                 {
-                    newUser = new Owner
-                    {
-                        Name = userName,
-                        Password = password
-                    };
-                }
-                else
-                {
-                    newUser = new Guest
-                    {
-                        Name = userName,
-                        Password = password
-                    };
-                }
+                    Name = userName,
+                    Password = password
+                };
                 ctx.Users.Add(newUser);
                 ctx.SaveChanges();
+                return UserDto.Convert(newUser);
             }
         }
 
-        public string Login(string userName, string password)
+        public UserDto Login(string userName, string password)
         {
             using (var ctx = new RestAppDbContext())
             {
@@ -49,9 +39,9 @@ namespace Server.Services
                 {
                     throw new FaultException<BadLoginCredentialsException>(new BadLoginCredentialsException());
                 }
-                user.Token = Guid.NewGuid();
+                user.Token = Guid.NewGuid().ToString();
                 ctx.SaveChanges();
-                return user.Token.ToString();
+                return UserDto.Convert(user);
             }
         }
     }

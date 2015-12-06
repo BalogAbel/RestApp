@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.Model
@@ -12,6 +12,10 @@ namespace Server.Model
 
         public string Password { get; set; }
 
-        public Guid Token { get; set; }
+        public string Token { get; set; }
+
+        public List<Reservation> Reservations { get; set; }
+
+        public List<Restaurant> Restaurants { get; set; }
     }
 }

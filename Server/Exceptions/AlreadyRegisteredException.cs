@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Server.Services.Exceptions
+namespace Server.Exceptions
 {
     [DataContract]
     public class AlreadyRegisteredException

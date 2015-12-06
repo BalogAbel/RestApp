@@ -1,4 +1,4 @@
-﻿namespace Server.Services.Exceptions
+﻿namespace Server.Exceptions
 {
     public class BadLoginCredentialsException
     {

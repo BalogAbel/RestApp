@@ -15,7 +15,68 @@ namespace RestApp.UserService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AlreadyRegisteredException", Namespace="http://schemas.datacontract.org/2004/07/Server.Services.Exceptions")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UserDto", Namespace="http://schemas.datacontract.org/2004/07/Server.DTO")]
+    [System.SerializableAttribute()]
+    public partial class UserDto : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TokenField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Token {
+            get {
+                return this.TokenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TokenField, value) != true)) {
+                    this.TokenField = value;
+                    this.RaisePropertyChanged("Token");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AlreadyRegisteredException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
     [System.SerializableAttribute()]
     public partial class AlreadyRegisteredException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -44,7 +105,7 @@ namespace RestApp.UserService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Services.Exceptions")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
     [System.SerializableAttribute()]
     public partial class BadLoginCredentialsException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -76,18 +137,18 @@ namespace RestApp.UserService {
     public interface IUserService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/RegisterUser", ReplyAction="http://tempuri.org/IUserService/RegisterUserResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.UserService.AlreadyRegisteredException), Action="http://tempuri.org/IUserService/RegisterUserAlreadyRegisteredExceptionFault", Name="AlreadyRegisteredException", Namespace="http://schemas.datacontract.org/2004/07/Server.Services.Exceptions")]
-        void RegisterUser(string userName, string password, bool asOwner);
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.UserService.AlreadyRegisteredException), Action="http://tempuri.org/IUserService/RegisterUserAlreadyRegisteredExceptionFault", Name="AlreadyRegisteredException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        RestApp.UserService.UserDto RegisterUser(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/RegisterUser", ReplyAction="http://tempuri.org/IUserService/RegisterUserResponse")]
-        System.Threading.Tasks.Task RegisterUserAsync(string userName, string password, bool asOwner);
+        System.Threading.Tasks.Task<RestApp.UserService.UserDto> RegisterUserAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.UserService.BadLoginCredentialsException), Action="http://tempuri.org/IUserService/LoginBadLoginCredentialsExceptionFault", Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Services.Exceptions")]
-        string Login(string userName, string password);
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.UserService.BadLoginCredentialsException), Action="http://tempuri.org/IUserService/LoginBadLoginCredentialsExceptionFault", Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        RestApp.UserService.UserDto Login(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserService/Login", ReplyAction="http://tempuri.org/IUserService/LoginResponse")]
-        System.Threading.Tasks.Task<string> LoginAsync(string userName, string password);
+        System.Threading.Tasks.Task<RestApp.UserService.UserDto> LoginAsync(string username, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -117,20 +178,20 @@ namespace RestApp.UserService {
                 base(binding, remoteAddress) {
         }
         
-        public void RegisterUser(string userName, string password, bool asOwner) {
-            base.Channel.RegisterUser(userName, password, asOwner);
+        public RestApp.UserService.UserDto RegisterUser(string username, string password) {
+            return base.Channel.RegisterUser(username, password);
         }
         
-        public System.Threading.Tasks.Task RegisterUserAsync(string userName, string password, bool asOwner) {
-            return base.Channel.RegisterUserAsync(userName, password, asOwner);
+        public System.Threading.Tasks.Task<RestApp.UserService.UserDto> RegisterUserAsync(string username, string password) {
+            return base.Channel.RegisterUserAsync(username, password);
         }
         
-        public string Login(string userName, string password) {
-            return base.Channel.Login(userName, password);
+        public RestApp.UserService.UserDto Login(string username, string password) {
+            return base.Channel.Login(username, password);
         }
         
-        public System.Threading.Tasks.Task<string> LoginAsync(string userName, string password) {
-            return base.Channel.LoginAsync(userName, password);
+        public System.Threading.Tasks.Task<RestApp.UserService.UserDto> LoginAsync(string username, string password) {
+            return base.Channel.LoginAsync(username, password);
         }
     }
 }

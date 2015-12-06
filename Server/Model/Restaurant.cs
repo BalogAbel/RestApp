@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.Model
@@ -10,8 +11,8 @@ namespace Server.Model
 
         public string Name { get; set; }
 
-        public string Place { get; set; }
+        public User Owner { get; set; }
 
-        public IEnumerable<Reservation> Reservations { get; set; }
+        public IEnumerable<Place> Places { get; set; } 
     }
 }

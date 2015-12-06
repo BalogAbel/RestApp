@@ -24,9 +24,8 @@ namespace Server.Model
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Guest> Guests { get; set; }
-        public virtual DbSet<Owner> Owners { get; set; }
         public virtual DbSet<Restaurant> Restaurants { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
+        public virtual DbSet<Place> Places { get; set; }
     }
 }

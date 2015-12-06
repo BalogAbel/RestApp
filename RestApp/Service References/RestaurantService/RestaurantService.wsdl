@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RestaurantService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Server.DTO" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IRestaurantService_GetAllRestaurant_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_GetAllRestaurant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRestaurantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_GetAllRestaurant_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q1:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_GetMyRestaurants_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyRestaurants" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_GetMyRestaurants_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyRestaurantsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_GetMyRestaurants_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q2:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_AddRestaurant_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_AddRestaurant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRestaurantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_AddRestaurant_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q3:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_EditRestaurant_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_EditRestaurant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditRestaurantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_EditRestaurant_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q4:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_EditRestaurant_NotFoundExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q5:NotFoundException" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_EditRestaurant_NotAuthorizedExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q6:NotAuthorizedException" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_DeleteRestaurant_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_DeleteRestaurant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRestaurantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_DeleteRestaurant_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q7:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_DeleteRestaurant_NotFoundExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q8:NotFoundException" />
+  </wsdl:message>
+  <wsdl:message name="IRestaurantService_DeleteRestaurant_NotAuthorizedExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q9:NotAuthorizedException" />
+  </wsdl:message>
+  <wsdl:portType name="IRestaurantService">
+    <wsdl:operation name="GetAllRestaurant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRestaurantService/GetAllRestaurant" message="tns:IRestaurantService_GetAllRestaurant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRestaurantService/GetAllRestaurantResponse" message="tns:IRestaurantService_GetAllRestaurant_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/GetAllRestaurantBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IRestaurantService_GetAllRestaurant_BadLoginCredentialsExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMyRestaurants">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRestaurantService/GetMyRestaurants" message="tns:IRestaurantService_GetMyRestaurants_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRestaurantService/GetMyRestaurantsResponse" message="tns:IRestaurantService_GetMyRestaurants_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/GetMyRestaurantsBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IRestaurantService_GetMyRestaurants_BadLoginCredentialsExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRestaurant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRestaurantService/AddRestaurant" message="tns:IRestaurantService_AddRestaurant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRestaurantService/AddRestaurantResponse" message="tns:IRestaurantService_AddRestaurant_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/AddRestaurantBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IRestaurantService_AddRestaurant_BadLoginCredentialsExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditRestaurant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurant" message="tns:IRestaurantService_EditRestaurant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurantResponse" message="tns:IRestaurantService_EditRestaurant_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurantBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IRestaurantService_EditRestaurant_BadLoginCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurantNotFoundExceptionFault" name="NotFoundExceptionFault" message="tns:IRestaurantService_EditRestaurant_NotFoundExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurantNotAuthorizedExceptionFault" name="NotAuthorizedExceptionFault" message="tns:IRestaurantService_EditRestaurant_NotAuthorizedExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRestaurant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRestaurantService/DeleteRestaurant" message="tns:IRestaurantService_DeleteRestaurant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRestaurantService/DeleteRestaurantResponse" message="tns:IRestaurantService_DeleteRestaurant_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/DeleteRestaurantBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IRestaurantService_DeleteRestaurant_BadLoginCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/DeleteRestaurantNotFoundExceptionFault" name="NotFoundExceptionFault" message="tns:IRestaurantService_DeleteRestaurant_NotFoundExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/DeleteRestaurantNotAuthorizedExceptionFault" name="NotAuthorizedExceptionFault" message="tns:IRestaurantService_DeleteRestaurant_NotAuthorizedExceptionFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IRestaurantService" type="tns:IRestaurantService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAllRestaurant">
+      <soap:operation soapAction="http://tempuri.org/IRestaurantService/GetAllRestaurant" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetMyRestaurants">
+      <soap:operation soapAction="http://tempuri.org/IRestaurantService/GetMyRestaurants" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddRestaurant">
+      <soap:operation soapAction="http://tempuri.org/IRestaurantService/AddRestaurant" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="EditRestaurant">
+      <soap:operation soapAction="http://tempuri.org/IRestaurantService/EditRestaurant" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotFoundExceptionFault">
+        <soap:fault use="literal" name="NotFoundExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotAuthorizedExceptionFault">
+        <soap:fault use="literal" name="NotAuthorizedExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRestaurant">
+      <soap:operation soapAction="http://tempuri.org/IRestaurantService/DeleteRestaurant" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotFoundExceptionFault">
+        <soap:fault use="literal" name="NotFoundExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotAuthorizedExceptionFault">
+        <soap:fault use="literal" name="NotAuthorizedExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RestaurantService">
+    <wsdl:port name="BasicHttpBinding_IRestaurantService" binding="tns:BasicHttpBinding_IRestaurantService">
+      <soap:address location="http://localhost:64970/Services/RestaurantService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

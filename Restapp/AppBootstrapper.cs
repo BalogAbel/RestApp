@@ -1,15 +1,17 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Windows;
+using Caliburn.Micro;
+using RestApp.Login;
 
-namespace RestApp {
-    using System;
-    using System.Collections.Generic;
-    using Caliburn.Micro;
-
-    public class AppBootstrapper : BootstrapperBase {
+namespace RestApp
+{
+    public class AppBootstrapper : BootstrapperBase
+    {
         private CompositionContainer container;
 
         public AppBootstrapper()
@@ -17,28 +19,28 @@ namespace RestApp {
             Initialize();
         }
 
+
         protected override void Configure()
         {
             container = new CompositionContainer(
                 new AggregateCatalog(
                     AssemblySource.Instance.Select(
-                    x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
+                        x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
                     )
                 );
 
-            CompositionBatch batch = new CompositionBatch();
+            var batch = new CompositionBatch();
 
             batch.AddExportedValue<IWindowManager>(new WindowManager());
             batch.AddExportedValue<IEventAggregator>(new EventAggregator());
             batch.AddExportedValue(container);
 
             container.Compose(batch);
-
         }
 
         protected override object GetInstance(Type service, string key)
         {
-            string contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(service) : key;
+            var contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(service) : key;
             var exports = container.GetExportedValues<object>(contract);
 
             if (exports.Any())
@@ -61,6 +63,17 @@ namespace RestApp {
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
+            var windowManager = IoC.Get<IWindowManager>();
+            Application.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            var vm = new LoginViewModel();
+            windowManager.ShowDialog(vm);
+            if (!vm.Success)
+            {
+                Application.Shutdown();
+                return;
+            }
+
+            Application.ShutdownMode = ShutdownMode.OnLastWindowClose;
             DisplayRootViewFor<IShell>();
         }
     }

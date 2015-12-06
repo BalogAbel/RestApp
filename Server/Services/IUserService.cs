@@ -1,5 +1,6 @@
 ﻿using System.ServiceModel;
-using Server.Services.Exceptions;
+using Server.DTO;
+using Server.Exceptions;
 
 namespace Server.Services
 {
@@ -9,10 +10,10 @@ namespace Server.Services
     {
         [OperationContract]
         [FaultContract(typeof (AlreadyRegisteredException))]
-        void RegisterUser(string userName, string password, bool asOwner);
+        UserDto RegisterUser(string username, string password);
 
         [OperationContract]
         [FaultContract(typeof (BadLoginCredentialsException))]
-        string Login(string userName, string password);
+        UserDto Login(string username, string password);
     }
 }

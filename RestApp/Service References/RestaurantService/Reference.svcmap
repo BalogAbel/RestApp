@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e6dc53fa-00ec-4b93-9dfe-0a462c3c2520" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:64970/Services/RestaurantService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="RestaurantService.wsdl" MetadataType="Wsdl" ID="d1763545-cb34-47bc-adcc-ea82f75ed90a" SourceId="1" SourceUrl="http://localhost:64970/Services/RestaurantService.svc?wsdl" />
+    <MetadataFile FileName="RestaurantService.disco" MetadataType="Disco" ID="af3f718b-a3c3-485c-88b7-509f806d7228" SourceId="1" SourceUrl="http://localhost:64970/Services/RestaurantService.svc?disco" />
+    <MetadataFile FileName="RestaurantService.xsd" MetadataType="Schema" ID="a1095ee4-5e78-48c3-9916-3250e4b02dcb" SourceId="1" SourceUrl="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd3" />
+    <MetadataFile FileName="RestaurantService1.xsd" MetadataType="Schema" ID="0300bdea-a5e0-4465-8580-180edf9b7e45" SourceId="1" SourceUrl="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd2" />
+    <MetadataFile FileName="RestaurantService2.xsd" MetadataType="Schema" ID="76e432bb-c743-4329-8bdf-dbd9b793aee4" SourceId="1" SourceUrl="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd1" />
+    <MetadataFile FileName="RestaurantService3.xsd" MetadataType="Schema" ID="c0f28897-6812-4cb2-8ca3-444b80b75d3c" SourceId="1" SourceUrl="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

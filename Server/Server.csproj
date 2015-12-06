@@ -62,6 +62,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\MySql.Web.dll</HintPath>
     </Reference>
+    <Reference Include="System.Collections" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -86,26 +87,46 @@
     <Content Include="lib\MySql.Data.dll" />
     <Content Include="lib\MySql.Data.Entity.EF6.dll" />
     <Content Include="lib\MySql.Web.dll" />
+    <Content Include="Services\PlaceService.svc" />
+    <Content Include="Services\ReservationService.svc" />
+    <Content Include="Services\RestaurantService.svc" />
     <Content Include="Services\UserService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\PlaceDto.cs" />
+    <Compile Include="DTO\ReservationDto.cs" />
+    <Compile Include="DTO\RestaurantDto.cs" />
     <Compile Include="DTO\UserDto.cs" />
-    <Compile Include="Model\Guest.cs" />
-    <Compile Include="Model\Owner.cs" />
+    <Compile Include="Exceptions\NotAuthorizedException.cs" />
+    <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Model\Place.cs" />
     <Compile Include="Model\Reservation.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Restaurant.cs" />
     <Compile Include="Model\RestAppDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Exceptions\AlreadyRegisteredException.cs" />
-    <Compile Include="Services\Exceptions\BadLoginCredentialsException.cs" />
+    <Compile Include="Exceptions\AlreadyRegisteredException.cs" />
+    <Compile Include="Exceptions\BadLoginCredentialsException.cs" />
+    <Compile Include="Services\IPlaceService.cs" />
+    <Compile Include="Services\IReservationService.cs" />
+    <Compile Include="Services\IRestaurantService.cs" />
     <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\PlaceService.svc.cs">
+      <DependentUpon>PlaceService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ReservationService.svc.cs">
+      <DependentUpon>ReservationService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\RestaurantService.svc.cs">
+      <DependentUpon>RestaurantService.svc</DependentUpon>
+    </Compile>
     <Compile Include="Services\UserService.svc.cs">
       <DependentUpon>UserService.svc</DependentUpon>
     </Compile>
+    <Compile Include="TokenHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -128,7 +149,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60787/</IISUrl>
+          <IISUrl>http://localhost:64970/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

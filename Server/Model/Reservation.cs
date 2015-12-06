@@ -9,11 +9,11 @@ namespace Server.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public Restaurant Restaurant { get; set; }
+        public Place Place { get; set; }
 
         public IEnumerable<Tuple<int, int>> Seats { get; set; }
 
-        public Guest Guest { get; set; }
+        public User Guest { get; set; }
 
         public DateTime From { get; set; }
 

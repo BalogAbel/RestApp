@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RestApp</RootNamespace>
     <AssemblyName>RestApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -76,13 +77,34 @@
     </ApplicationDefinition>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Compile Include="Login\LoginViewModel.cs" />
+    <Compile Include="Reserve\ReserveView.xaml.cs">
+      <DependentUpon>ReserveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Restaurant\RestaurantView.xaml.cs">
+      <DependentUpon>RestaurantView.xaml</DependentUpon>
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Restaurant\RestaurantViewModel.cs" />
+    <Compile Include="Reserve\ReserveViewModel.cs" />
+    <Compile Include="Service References\ReservationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RestaurantService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\UserService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ShellViewModel.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Util\AppData.cs" />
+    <Page Include="Login\LoginView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -90,10 +112,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="Reserve\ReserveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Restaurant\RestaurantView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ShellView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -123,6 +149,29 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\ReservationService\ReservationService.wsdl" />
+    <None Include="Service References\ReservationService\ReservationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RestaurantService\RestApp.RestaurantService.RestaurantDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RestaurantService\RestaurantService.wsdl" />
+    <None Include="Service References\RestaurantService\RestaurantService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RestaurantService\RestaurantService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RestaurantService\RestaurantService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RestaurantService\RestaurantService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\RestApp.UserService.UserDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\UserService\UserService.wsdl" />
     <None Include="Service References\UserService\UserService.xsd">
       <SubType>Designer</SubType>
@@ -133,6 +182,9 @@
     <None Include="Service References\UserService\UserService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\UserService\UserService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -141,6 +193,11 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Register\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ReservationService\" />
+    <WCFMetadataStorage Include="Service References\RestaurantService\" />
     <WCFMetadataStorage Include="Service References\UserService\" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +211,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\UserService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RestaurantService\RestaurantService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RestaurantService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RestaurantService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RestaurantService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ReservationService\ReservationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ReservationService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ReservationService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ReservationService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
