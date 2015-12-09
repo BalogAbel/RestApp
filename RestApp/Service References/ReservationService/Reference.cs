@@ -9,17 +9,352 @@
 //------------------------------------------------------------------------------
 
 namespace RestApp.ReservationService {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ReservationDto", Namespace="http://schemas.datacontract.org/2004/07/Server.DTO")]
+    [System.SerializableAttribute()]
+    public partial class ReservationDto : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FromField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GuestField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RestaurantField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Tuple<int, int>[] SeatsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime ToField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime From {
+            get {
+                return this.FromField;
+            }
+            set {
+                if ((this.FromField.Equals(value) != true)) {
+                    this.FromField = value;
+                    this.RaisePropertyChanged("From");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Guest {
+            get {
+                return this.GuestField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GuestField, value) != true)) {
+                    this.GuestField = value;
+                    this.RaisePropertyChanged("Guest");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Restaurant {
+            get {
+                return this.RestaurantField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RestaurantField, value) != true)) {
+                    this.RestaurantField = value;
+                    this.RaisePropertyChanged("Restaurant");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Tuple<int, int>[] Seats {
+            get {
+                return this.SeatsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SeatsField, value) != true)) {
+                    this.SeatsField = value;
+                    this.RaisePropertyChanged("Seats");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime To {
+            get {
+                return this.ToField;
+            }
+            set {
+                if ((this.ToField.Equals(value) != true)) {
+                    this.ToField = value;
+                    this.RaisePropertyChanged("To");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class BadLoginCredentialsException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NotFoundException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class NotFoundException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DateOrderException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class DateOrderException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SeatsAreBusyException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class SeatsAreBusyException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlaceDateException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class PlaceDateException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NotAuthorizedException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class NotAuthorizedException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ReservationService.IReservationService")]
     public interface IReservationService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/DoWork", ReplyAction="http://tempuri.org/IReservationService/DoWorkResponse")]
-        void DoWork();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/GetForRestaurant", ReplyAction="http://tempuri.org/IReservationService/GetForRestaurantResponse")]
+        RestApp.ReservationService.ReservationDto[] GetForRestaurant(long restaurantId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/DoWork", ReplyAction="http://tempuri.org/IReservationService/DoWorkResponse")]
-        System.Threading.Tasks.Task DoWorkAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/GetForRestaurant", ReplyAction="http://tempuri.org/IReservationService/GetForRestaurantResponse")]
+        System.Threading.Tasks.Task<RestApp.ReservationService.ReservationDto[]> GetForRestaurantAsync(long restaurantId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/GetForUser", ReplyAction="http://tempuri.org/IReservationService/GetForUserResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.BadLoginCredentialsException), Action="http://tempuri.org/IReservationService/GetForUserBadLoginCredentialsExceptionFaul" +
+            "t", Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        RestApp.ReservationService.ReservationDto[] GetForUser(string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/GetForUser", ReplyAction="http://tempuri.org/IReservationService/GetForUserResponse")]
+        System.Threading.Tasks.Task<RestApp.ReservationService.ReservationDto[]> GetForUserAsync(string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/GetForPlace", ReplyAction="http://tempuri.org/IReservationService/GetForPlaceResponse")]
+        RestApp.ReservationService.ReservationDto[] GetForPlace(long placeId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/GetForPlace", ReplyAction="http://tempuri.org/IReservationService/GetForPlaceResponse")]
+        System.Threading.Tasks.Task<RestApp.ReservationService.ReservationDto[]> GetForPlaceAsync(long placeId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/Add", ReplyAction="http://tempuri.org/IReservationService/AddResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.BadLoginCredentialsException), Action="http://tempuri.org/IReservationService/AddBadLoginCredentialsExceptionFault", Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.NotFoundException), Action="http://tempuri.org/IReservationService/AddNotFoundExceptionFault", Name="NotFoundException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.DateOrderException), Action="http://tempuri.org/IReservationService/AddDateOrderExceptionFault", Name="DateOrderException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.SeatsAreBusyException), Action="http://tempuri.org/IReservationService/AddSeatsAreBusyExceptionFault", Name="SeatsAreBusyException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.PlaceDateException), Action="http://tempuri.org/IReservationService/AddPlaceDateExceptionFault", Name="PlaceDateException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        void Add(long placeId, System.Tuple<int, int>[] seats, System.DateTime fromDate, System.DateTime toDate, string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/Add", ReplyAction="http://tempuri.org/IReservationService/AddResponse")]
+        System.Threading.Tasks.Task AddAsync(long placeId, System.Tuple<int, int>[] seats, System.DateTime fromDate, System.DateTime toDate, string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/Delete", ReplyAction="http://tempuri.org/IReservationService/DeleteResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.BadLoginCredentialsException), Action="http://tempuri.org/IReservationService/DeleteBadLoginCredentialsExceptionFault", Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.NotFoundException), Action="http://tempuri.org/IReservationService/DeleteNotFoundExceptionFault", Name="NotFoundException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.ReservationService.NotAuthorizedException), Action="http://tempuri.org/IReservationService/DeleteNotAuthorizedExceptionFault", Name="NotAuthorizedException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        void Delete(long reservationId, string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReservationService/Delete", ReplyAction="http://tempuri.org/IReservationService/DeleteResponse")]
+        System.Threading.Tasks.Task DeleteAsync(long reservationId, string token);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +384,44 @@ namespace RestApp.ReservationService {
                 base(binding, remoteAddress) {
         }
         
-        public void DoWork() {
-            base.Channel.DoWork();
+        public RestApp.ReservationService.ReservationDto[] GetForRestaurant(long restaurantId) {
+            return base.Channel.GetForRestaurant(restaurantId);
         }
         
-        public System.Threading.Tasks.Task DoWorkAsync() {
-            return base.Channel.DoWorkAsync();
+        public System.Threading.Tasks.Task<RestApp.ReservationService.ReservationDto[]> GetForRestaurantAsync(long restaurantId) {
+            return base.Channel.GetForRestaurantAsync(restaurantId);
+        }
+        
+        public RestApp.ReservationService.ReservationDto[] GetForUser(string token) {
+            return base.Channel.GetForUser(token);
+        }
+        
+        public System.Threading.Tasks.Task<RestApp.ReservationService.ReservationDto[]> GetForUserAsync(string token) {
+            return base.Channel.GetForUserAsync(token);
+        }
+        
+        public RestApp.ReservationService.ReservationDto[] GetForPlace(long placeId) {
+            return base.Channel.GetForPlace(placeId);
+        }
+        
+        public System.Threading.Tasks.Task<RestApp.ReservationService.ReservationDto[]> GetForPlaceAsync(long placeId) {
+            return base.Channel.GetForPlaceAsync(placeId);
+        }
+        
+        public void Add(long placeId, System.Tuple<int, int>[] seats, System.DateTime fromDate, System.DateTime toDate, string token) {
+            base.Channel.Add(placeId, seats, fromDate, toDate, token);
+        }
+        
+        public System.Threading.Tasks.Task AddAsync(long placeId, System.Tuple<int, int>[] seats, System.DateTime fromDate, System.DateTime toDate, string token) {
+            return base.Channel.AddAsync(placeId, seats, fromDate, toDate, token);
+        }
+        
+        public void Delete(long reservationId, string token) {
+            base.Channel.Delete(reservationId, token);
+        }
+        
+        public System.Threading.Tasks.Task DeleteAsync(long reservationId, string token) {
+            return base.Channel.DeleteAsync(reservationId, token);
         }
     }
 }

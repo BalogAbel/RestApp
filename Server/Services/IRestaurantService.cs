@@ -20,7 +20,7 @@ namespace Server.Services
 
         [OperationContract]
         [FaultContract(typeof(BadLoginCredentialsException))]
-        void AddRestaurant(RestaurantDto restaurant, string token);
+        void AddRestaurant(string name, string token);
 
         [OperationContract]
         [FaultContract(typeof(BadLoginCredentialsException))]

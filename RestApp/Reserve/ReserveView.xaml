@@ -5,11 +5,100 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
              cal:Bind.Model="RestApp.Reserve.ReserveViewModel"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel>
+             d:DesignHeight="300" d:DesignWidth="800" Background="White">
 
-        <TextBlock>Yeah, reservation</TextBlock>
-        <TextBox x:Name="Name" />
-    </StackPanel>
+    <Grid
+                                                                                                                                                                                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                                                                                                                                                                        Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="0,0,10,0" Grid.Column="0">
+            <Button x:Name="AddRestaurant" Width="200">Add new restaurant</Button>
+            <Separator BorderBrush="Black" Margin="0,10,0,10">
+                <Separator.Effect>
+                    <DropShadowEffect />
+                </Separator.Effect>
+            </Separator>
+
+            <DockPanel VerticalAlignment="Center" Height="40">
+                <TextBlock Margin="0,0,20,0" Height="20">Select restaurant:</TextBlock>
+                <ComboBox x:Name="Restaurants" DisplayMemberPath="Name" Height="30" />
+            </DockPanel>
+            <DockPanel VerticalAlignment="Center" Height="40">
+                <TextBlock Margin="0,0,20,0" Height="20">Select arrangement:</TextBlock>
+                <ComboBox x:Name="Places" Height="30">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding From}" />
+                                <TextBlock> -</TextBlock>
+                                <TextBlock Text="{Binding To}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </DockPanel>
+            <Separator BorderBrush="Black" Margin="0,0,0,10">
+                <Separator.Effect>
+                    <DropShadowEffect />
+                </Separator.Effect>
+            </Separator>
+            <DataGrid x:Name="Reservations">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}" />
+                    <DataGridTextColumn Header="From" Binding="{Binding Path=From}" />
+                    <DataGridTextColumn Header="To" Binding="{Binding Path=To}" />
+                    <DataGridTextColumn Header="Seat#" Binding="{Binding Path=Seats.Length}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Grid Margin="10,0,0,0" Grid.Column="1">
+            <StackPanel>
+                <TextBlock>Select the activation of the arrangement (from - to)</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <xctk:DateTimePicker x:Name="FromDate" Grid.Column="0" Margin="5"/>
+                    <xctk:DateTimePicker x:Name="ToDate" Grid.Column="1" Margin="5"/>
+                </Grid>
+                <Button Width="200"  Margin="5" x:Name="SaveDate">Save date</Button>
+                <Button Width="200" Margin="5" x:Name="SaveReservation">Save seats</Button>
+                <TextBlock Margin="0,10,0,0">Select seats</TextBlock>
+            </StackPanel>
+            <ScrollViewer Margin="5,100,5,5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid x:Name="GridPlace" HorizontalAlignment="Left" Margin="0,0" VerticalAlignment="Top">
+                    <Grid.Resources>
+                        <Style TargetType="{x:Type Border}" x:Key="Empty">
+                            <Setter Property="BorderBrush" Value="Black" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Background" Value="White" />
+                        </Style>
+                        <Style TargetType="{x:Type Border}" x:Key="Seat">
+                            <Setter Property="BorderBrush" Value="LightGray" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Background" Value="Orange" />
+                        </Style>
+                        <Style TargetType="{x:Type Border}" x:Key="Table">
+                            <Setter Property="Background" Value="CadetBlue" />
+                        </Style>
+                        <Style TargetType="{x:Type Border}" x:Key="Reserved">
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Background" Value="DarkRed" />
+                        </Style>
+                        <Style TargetType="{x:Type Border}" x:Key="Reserving">
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Background" Value="LimeGreen" />
+                        </Style>
+                    </Grid.Resources>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
 </UserControl>

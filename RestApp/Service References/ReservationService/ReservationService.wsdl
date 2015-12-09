@@ -3,30 +3,173 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:64970/Services/ReservationService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/ReservationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/ReservationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Server.DTO" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/ReservationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/ReservationService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IReservationService_DoWork_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork" />
+  <wsdl:message name="IReservationService_GetForRestaurant_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetForRestaurant" />
   </wsdl:message>
-  <wsdl:message name="IReservationService_DoWork_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  <wsdl:message name="IReservationService_GetForRestaurant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetForRestaurantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_GetForUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetForUser" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_GetForUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetForUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_GetForUser_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q1:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_GetForPlace_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetForPlace" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_GetForPlace_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetForPlaceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Add_InputMessage">
+    <wsdl:part name="parameters" element="tns:Add" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Add_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Add_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q2:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Add_NotFoundExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q3:NotFoundException" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Add_DateOrderExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q4:DateOrderException" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Add_SeatsAreBusyExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q5:SeatsAreBusyException" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Add_PlaceDateExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q6:PlaceDateException" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Delete_InputMessage">
+    <wsdl:part name="parameters" element="tns:Delete" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Delete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Delete_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q7:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Delete_NotFoundExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q8:NotFoundException" />
+  </wsdl:message>
+  <wsdl:message name="IReservationService_Delete_NotAuthorizedExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q9:NotAuthorizedException" />
   </wsdl:message>
   <wsdl:portType name="IReservationService">
-    <wsdl:operation name="DoWork">
-      <wsdl:input wsaw:Action="http://tempuri.org/IReservationService/DoWork" message="tns:IReservationService_DoWork_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IReservationService/DoWorkResponse" message="tns:IReservationService_DoWork_OutputMessage" />
+    <wsdl:operation name="GetForRestaurant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReservationService/GetForRestaurant" message="tns:IReservationService_GetForRestaurant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReservationService/GetForRestaurantResponse" message="tns:IReservationService_GetForRestaurant_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetForUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReservationService/GetForUser" message="tns:IReservationService_GetForUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReservationService/GetForUserResponse" message="tns:IReservationService_GetForUser_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/GetForUserBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IReservationService_GetForUser_BadLoginCredentialsExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetForPlace">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReservationService/GetForPlace" message="tns:IReservationService_GetForPlace_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReservationService/GetForPlaceResponse" message="tns:IReservationService_GetForPlace_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Add">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReservationService/Add" message="tns:IReservationService_Add_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReservationService/AddResponse" message="tns:IReservationService_Add_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/AddBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IReservationService_Add_BadLoginCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/AddNotFoundExceptionFault" name="NotFoundExceptionFault" message="tns:IReservationService_Add_NotFoundExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/AddDateOrderExceptionFault" name="DateOrderExceptionFault" message="tns:IReservationService_Add_DateOrderExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/AddSeatsAreBusyExceptionFault" name="SeatsAreBusyExceptionFault" message="tns:IReservationService_Add_SeatsAreBusyExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/AddPlaceDateExceptionFault" name="PlaceDateExceptionFault" message="tns:IReservationService_Add_PlaceDateExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReservationService/Delete" message="tns:IReservationService_Delete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReservationService/DeleteResponse" message="tns:IReservationService_Delete_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/DeleteBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IReservationService_Delete_BadLoginCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/DeleteNotFoundExceptionFault" name="NotFoundExceptionFault" message="tns:IReservationService_Delete_NotFoundExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IReservationService/DeleteNotAuthorizedExceptionFault" name="NotAuthorizedExceptionFault" message="tns:IReservationService_Delete_NotAuthorizedExceptionFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IReservationService" type="tns:IReservationService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="DoWork">
-      <soap:operation soapAction="http://tempuri.org/IReservationService/DoWork" style="document" />
+    <wsdl:operation name="GetForRestaurant">
+      <soap:operation soapAction="http://tempuri.org/IReservationService/GetForRestaurant" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal" />
       </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetForUser">
+      <soap:operation soapAction="http://tempuri.org/IReservationService/GetForUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetForPlace">
+      <soap:operation soapAction="http://tempuri.org/IReservationService/GetForPlace" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Add">
+      <soap:operation soapAction="http://tempuri.org/IReservationService/Add" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotFoundExceptionFault">
+        <soap:fault use="literal" name="NotFoundExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="DateOrderExceptionFault">
+        <soap:fault use="literal" name="DateOrderExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="SeatsAreBusyExceptionFault">
+        <soap:fault use="literal" name="SeatsAreBusyExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="PlaceDateExceptionFault">
+        <soap:fault use="literal" name="PlaceDateExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="Delete">
+      <soap:operation soapAction="http://tempuri.org/IReservationService/Delete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotFoundExceptionFault">
+        <soap:fault use="literal" name="NotFoundExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotAuthorizedExceptionFault">
+        <soap:fault use="literal" name="NotAuthorizedExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="ReservationService">

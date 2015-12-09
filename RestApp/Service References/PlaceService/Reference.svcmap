@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bc137c02-d1cd-4851-9109-b6ba99b44794" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:64970/Services/PlaceService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PlaceService.disco" MetadataType="Disco" ID="942e31d6-91dd-46a4-92ea-340892193db5" SourceId="1" SourceUrl="http://localhost:64970/Services/PlaceService.svc?disco" />
+    <MetadataFile FileName="PlaceService.wsdl" MetadataType="Wsdl" ID="531f4fe6-4a07-41ae-b8be-3571258e3b62" SourceId="1" SourceUrl="http://localhost:64970/Services/PlaceService.svc?wsdl" />
+    <MetadataFile FileName="PlaceService.xsd" MetadataType="Schema" ID="e2f104a5-4c3a-4aae-85b7-98c33f69d683" SourceId="1" SourceUrl="http://localhost:64970/Services/PlaceService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PlaceService1.xsd" MetadataType="Schema" ID="c9493d50-b3b7-475b-b5ad-514bc9b42abf" SourceId="1" SourceUrl="http://localhost:64970/Services/PlaceService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PlaceService2.xsd" MetadataType="Schema" ID="fb7bed18-c4a9-421e-a0f4-6404bc7e21ca" SourceId="1" SourceUrl="http://localhost:64970/Services/PlaceService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PlaceService3.xsd" MetadataType="Schema" ID="b97564d3-1041-460f-9576-7a6916d1ef3a" SourceId="1" SourceUrl="http://localhost:64970/Services/PlaceService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

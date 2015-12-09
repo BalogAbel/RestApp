@@ -200,20 +200,20 @@ namespace RestApp.RestaurantService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRestaurantService/AddRestaurant", ReplyAction="http://tempuri.org/IRestaurantService/AddRestaurantResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.BadLoginCredentialsException), Action="http://tempuri.org/IRestaurantService/AddRestaurantBadLoginCredentialsExceptionFa" +
             "ult", Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
-        void AddRestaurant(RestApp.RestaurantService.RestaurantDto restaurant, string token);
+        void AddRestaurant(string name, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRestaurantService/AddRestaurant", ReplyAction="http://tempuri.org/IRestaurantService/AddRestaurantResponse")]
-        System.Threading.Tasks.Task AddRestaurantAsync(RestApp.RestaurantService.RestaurantDto restaurant, string token);
+        System.Threading.Tasks.Task AddRestaurantAsync(string name, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRestaurantService/EditRestaurant", ReplyAction="http://tempuri.org/IRestaurantService/EditRestaurantResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.BadLoginCredentialsException), Action="http://tempuri.org/IRestaurantService/EditRestaurantBadLoginCredentialsExceptionF" +
             "ault", Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
         [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.NotFoundException), Action="http://tempuri.org/IRestaurantService/EditRestaurantNotFoundExceptionFault", Name="NotFoundException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
         [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.NotAuthorizedException), Action="http://tempuri.org/IRestaurantService/EditRestaurantNotAuthorizedExceptionFault", Name="NotAuthorizedException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
-        void EditRestaurant(RestApp.RestaurantService.RestaurantDto restaurant, string token);
+        void EditRestaurant(long id, string name, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRestaurantService/EditRestaurant", ReplyAction="http://tempuri.org/IRestaurantService/EditRestaurantResponse")]
-        System.Threading.Tasks.Task EditRestaurantAsync(RestApp.RestaurantService.RestaurantDto restaurant, string token);
+        System.Threading.Tasks.Task EditRestaurantAsync(long id, string name, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRestaurantService/DeleteRestaurant", ReplyAction="http://tempuri.org/IRestaurantService/DeleteRestaurantResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.BadLoginCredentialsException), Action="http://tempuri.org/IRestaurantService/DeleteRestaurantBadLoginCredentialsExceptio" +
@@ -270,20 +270,20 @@ namespace RestApp.RestaurantService {
             return base.Channel.GetMyRestaurantsAsync(token);
         }
         
-        public void AddRestaurant(RestApp.RestaurantService.RestaurantDto restaurant, string token) {
-            base.Channel.AddRestaurant(restaurant, token);
+        public void AddRestaurant(string name, string token) {
+            base.Channel.AddRestaurant(name, token);
         }
         
-        public System.Threading.Tasks.Task AddRestaurantAsync(RestApp.RestaurantService.RestaurantDto restaurant, string token) {
-            return base.Channel.AddRestaurantAsync(restaurant, token);
+        public System.Threading.Tasks.Task AddRestaurantAsync(string name, string token) {
+            return base.Channel.AddRestaurantAsync(name, token);
         }
         
-        public void EditRestaurant(RestApp.RestaurantService.RestaurantDto restaurant, string token) {
-            base.Channel.EditRestaurant(restaurant, token);
+        public void EditRestaurant(long id, string name, string token) {
+            base.Channel.EditRestaurant(id, name, token);
         }
         
-        public System.Threading.Tasks.Task EditRestaurantAsync(RestApp.RestaurantService.RestaurantDto restaurant, string token) {
-            return base.Channel.EditRestaurantAsync(restaurant, token);
+        public System.Threading.Tasks.Task EditRestaurantAsync(long id, string name, string token) {
+            return base.Channel.EditRestaurantAsync(id, name, token);
         }
         
         public void DeleteRestaurant(RestApp.RestaurantService.RestaurantDto restaurant, string token) {

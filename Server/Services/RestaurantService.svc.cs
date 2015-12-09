@@ -30,14 +30,14 @@ namespace Server.Services
             }
         } 
 
-        public void AddRestaurant(RestaurantDto restaurant, string token)
+        public void AddRestaurant(string name, string token)
         {
             using (var ctx = new RestAppDbContext())
             {
                 var user = TokenHelper.ValidateToken(token, ctx);
                 ctx.Restaurants.Add(new Restaurant
                 {
-                    Name = restaurant.Name,
+                    Name = name,
                     Owner = user
                 });
                 ctx.SaveChanges();

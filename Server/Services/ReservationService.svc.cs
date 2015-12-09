@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.ServiceModel;
 using Server.DTO;
+using Server.Exceptions;
 using Server.Model;
 
 namespace Server.Services
@@ -16,8 +17,8 @@ namespace Server.Services
             using (var ctx = new RestAppDbContext())
             {
                 return
-                    (from r in ctx.Reservations where r.Place.Restaurant.Id == restaurantId select r).Select(
-                        r => ReservationDto.Convert(r));
+                    (from r in ctx.Reservations where r.Place.Restaurant.Id == restaurantId select r).ToList().Select(
+                        ReservationDto.Convert);
             }
         }
 
@@ -27,8 +28,8 @@ namespace Server.Services
             {
                 var user = TokenHelper.ValidateToken(token, ctx);
                 return
-                    (from r in ctx.Reservations where r.Guest.Id == user.Id select r).Select(
-                        r => ReservationDto.Convert(r));
+                    (from r in ctx.Reservations where r.Guest.Id == user.Id select r).ToList().Select(
+                        ReservationDto.Convert);
             }
         }
 
@@ -37,26 +38,30 @@ namespace Server.Services
             using (var ctx = new RestAppDbContext())
             {
                 return
-                    (from r in ctx.Reservations where r.Place.Id == placeId select r).Select(
-                        r => ReservationDto.Convert(r));
+                    (from r in ctx.Reservations where r.Place.Id == placeId select r).ToList().Select(
+                        ReservationDto.Convert);
             }
         }
 
-        public void Add(long placeId, IEnumerable<Tuple<int, int>> seats, DateTime fromDate, DateTime toDate, string token)
+        public void Add(long placeId, IEnumerable<Tuple<int, int>> seats, DateTime fromDate, DateTime toDate,
+            string token)
         {
             using (var ctx = new RestAppDbContext())
             {
                 var user = TokenHelper.ValidateToken(token, ctx);
-                if(fromDate >= toDate) throw new Exception();
+                var place = (from p in ctx.Places where p.Id == placeId select p).SingleOrDefault();
+                if (place == null) throw new FaultException<NotFoundException>(new NotFoundException());
+                if (fromDate >= toDate) throw new FaultException<DateOrderException>(new DateOrderException());
+                ;
                 var busy = /*(from r in ctx.Reservations where r.Place.Id ==  placeId && r.To > fromDate || r.From -*/
                     false;
-                if(busy) throw new Exception();
+                if (busy) throw new FaultException<SeatsAreBusyException>(new SeatsAreBusyException());
 
-                var place = (from p in ctx.Places where p.Id == placeId select p).SingleOrDefault();
-                if(place == null) throw new Exception();
-                if(place.From > fromDate || place.To < toDate) throw new Exception();
+                if (place.From > fromDate || place.To < toDate)
+                    throw new FaultException<PlaceDateException>(new PlaceDateException());
+                ;
 
-                ctx.Reservations.Add(new Reservation()
+                ctx.Reservations.Add(new Reservation
                 {
                     From = fromDate,
                     To = toDate,
@@ -74,12 +79,12 @@ namespace Server.Services
             {
                 var user = TokenHelper.ValidateToken(token, ctx);
                 var reservation = (from r in ctx.Reservations where r.Id == reservationId select r).SingleOrDefault();
-                if(reservation == null) throw new Exception();
-                if(reservation.Guest.Id != user.Id) throw new Exception();
+                if (reservation == null) throw new FaultException<NotFoundException>(new NotFoundException());
+                if (reservation.Guest.Id != user.Id)
+                    throw new FaultException<NotAuthorizedException>(new NotAuthorizedException());
                 ctx.Reservations.Remove(reservation);
                 ctx.SaveChanges();
             }
-
         }
     }
 }

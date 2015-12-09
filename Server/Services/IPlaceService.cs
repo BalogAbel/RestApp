@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using Server.DTO;
+using Server.Exceptions;
 
 namespace Server.Services
 {
@@ -20,6 +21,10 @@ namespace Server.Services
         IEnumerable<PlaceDto> GetPlacesForRestaurantInDate(long restaurantId, DateTime date);
 
         [OperationContract]
+        [FaultContract(typeof(BadLoginCredentialsException))]
+        [FaultContract(typeof(NotFoundException))]
+        [FaultContract(typeof(NotAuthorizedException))]
+        [FaultContract(typeof(NotNewestPlaceException))]
         void Add(string seats, DateTime fromDate, long restaurantId, string token);
     }
 }

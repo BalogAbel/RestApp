@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using System.ServiceModel;
 using MySql.Data.Entity;
 using Server.DTO;
+using Server.Exceptions;
 using Server.Model;
 
 namespace Server.Services
@@ -38,13 +40,11 @@ namespace Server.Services
                 var user = TokenHelper.ValidateToken(token, ctx);
 
                 var restaurant = (from r in ctx.Restaurants where r.Id == restaurantId select r).SingleOrDefault();
-                //TODO
-                if (restaurant == null) throw new Exception();
-                if (restaurant.Owner.Id != user.Id) throw new Exception();
+                if (restaurant == null) throw new FaultException<NotFoundException>(new NotFoundException());
+                if (restaurant.Owner.Id != user.Id) throw new FaultException<NotAuthorizedException>(new NotAuthorizedException());
                 var correct =
                     !(from p in ctx.Places where p.Restaurant.Id == restaurantId && p.From > fromDate select p).Any();
-                //TODO!
-                if (!correct) throw new Exception();
+                if (!correct) throw new FaultException<NotNewestPlaceException>(new NotNewestPlaceException());
 
                 var actualPlace =
                     (from p in ctx.Places where p.Restaurant.Id == restaurantId && p.To == null select p)

@@ -100,8 +100,12 @@
     <Compile Include="DTO\ReservationDto.cs" />
     <Compile Include="DTO\RestaurantDto.cs" />
     <Compile Include="DTO\UserDto.cs" />
+    <Compile Include="Exceptions\DateOrderException.cs" />
     <Compile Include="Exceptions\NotAuthorizedException.cs" />
     <Compile Include="Exceptions\NotFoundException.cs" />
+    <Compile Include="Exceptions\NotNewestPlaceException.cs" />
+    <Compile Include="Exceptions\PlaceDateException.cs" />
+    <Compile Include="Exceptions\SeatsAreBusyException.cs" />
     <Compile Include="Model\Place.cs" />
     <Compile Include="Model\Reservation.cs" />
     <Compile Include="Model\User.cs" />

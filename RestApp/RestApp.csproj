@@ -69,6 +69,30 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.5\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -81,12 +105,18 @@
     <Compile Include="Reserve\ReserveView.xaml.cs">
       <DependentUpon>ReserveView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Restaurant\AddRestaurant\AddRestaurantViewModel.cs" />
     <Compile Include="Restaurant\RestaurantView.xaml.cs">
       <DependentUpon>RestaurantView.xaml</DependentUpon>
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="Restaurant\RestaurantViewModel.cs" />
     <Compile Include="Reserve\ReserveViewModel.cs" />
+    <Compile Include="Service References\PlaceService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\ReservationService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,6 +143,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Reserve\ReserveView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Restaurant\AddRestaurant\AddRestaurantView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,9 +183,40 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\PlaceService\PlaceService.wsdl" />
+    <None Include="Service References\PlaceService\PlaceService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlaceService\PlaceService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlaceService\PlaceService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlaceService\PlaceService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PlaceService\RestApp.PlaceService.PlaceDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ReservationService\ReservationService.wsdl" />
     <None Include="Service References\ReservationService\ReservationService.xsd">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ReservationService\ReservationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ReservationService\ReservationService11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ReservationService\ReservationService12.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ReservationService\ReservationService13.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ReservationService\RestApp.ReservationService.ReservationDto.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\RestaurantService\RestApp.RestaurantService.RestaurantDto.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -196,6 +261,7 @@
     <Folder Include="Register\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\PlaceService\" />
     <WCFMetadataStorage Include="Service References\ReservationService\" />
     <WCFMetadataStorage Include="Service References\RestaurantService\" />
     <WCFMetadataStorage Include="Service References\UserService\" />
@@ -241,6 +307,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ReservationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PlaceService\PlaceService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PlaceService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PlaceService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\PlaceService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

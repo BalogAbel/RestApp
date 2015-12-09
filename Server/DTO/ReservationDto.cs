@@ -12,9 +12,14 @@ namespace Server.DTO
 
         public string Guest { get; set; }
 
-        public RestaurantDto Restaurant { get; set; }
+        public string Restaurant { get; set; }
 
         public IEnumerable<Tuple<int, int>> Seats { get; set; }
+
+        public DateTime From { get; set; }
+
+        public DateTime To { get; set; }
+
 
         public static ReservationDto Convert(Reservation reservation)
         {
@@ -22,8 +27,10 @@ namespace Server.DTO
             {
                 Id = reservation.Id,
                 Guest = reservation.Guest.Name,
-                Restaurant = RestaurantDto.Convert(reservation.Place.Restaurant),
-                Seats = reservation.Seats
+                Restaurant = reservation.Place.Restaurant.Name,
+                Seats = reservation.Seats,
+                From = reservation.From,
+                To = reservation.To
             };
         }
     }

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PlaceService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:64970/Services/PlaceService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/PlaceService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/PlaceService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Server.DTO" />
+      <xsd:import schemaLocation="http://localhost:64970/Services/PlaceService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPlaceService_GetPlacesForRestaurant_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlacesForRestaurant" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_GetPlacesForRestaurant_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlacesForRestaurantResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_GetPlacesForRestaurantInDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlacesForRestaurantInDate" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_GetPlacesForRestaurantInDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlacesForRestaurantInDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_Add_InputMessage">
+    <wsdl:part name="parameters" element="tns:Add" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_Add_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_Add_BadLoginCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q1:BadLoginCredentialsException" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_Add_NotFoundExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q2:NotFoundException" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_Add_NotAuthorizedExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q3:NotAuthorizedException" />
+  </wsdl:message>
+  <wsdl:message name="IPlaceService_Add_NotNewestPlaceExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q4:NotNewestPlaceException" />
+  </wsdl:message>
+  <wsdl:portType name="IPlaceService">
+    <wsdl:operation name="GetPlacesForRestaurant">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlaceService/GetPlacesForRestaurant" message="tns:IPlaceService_GetPlacesForRestaurant_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlaceService/GetPlacesForRestaurantResponse" message="tns:IPlaceService_GetPlacesForRestaurant_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlacesForRestaurantInDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlaceService/GetPlacesForRestaurantInDate" message="tns:IPlaceService_GetPlacesForRestaurantInDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlaceService/GetPlacesForRestaurantInDateResponse" message="tns:IPlaceService_GetPlacesForRestaurantInDate_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Add">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlaceService/Add" message="tns:IPlaceService_Add_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlaceService/AddResponse" message="tns:IPlaceService_Add_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlaceService/AddBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IPlaceService_Add_BadLoginCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlaceService/AddNotFoundExceptionFault" name="NotFoundExceptionFault" message="tns:IPlaceService_Add_NotFoundExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlaceService/AddNotAuthorizedExceptionFault" name="NotAuthorizedExceptionFault" message="tns:IPlaceService_Add_NotAuthorizedExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlaceService/AddNotNewestPlaceExceptionFault" name="NotNewestPlaceExceptionFault" message="tns:IPlaceService_Add_NotNewestPlaceExceptionFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IPlaceService" type="tns:IPlaceService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetPlacesForRestaurant">
+      <soap:operation soapAction="http://tempuri.org/IPlaceService/GetPlacesForRestaurant" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlacesForRestaurantInDate">
+      <soap:operation soapAction="http://tempuri.org/IPlaceService/GetPlacesForRestaurantInDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Add">
+      <soap:operation soapAction="http://tempuri.org/IPlaceService/Add" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BadLoginCredentialsExceptionFault">
+        <soap:fault use="literal" name="BadLoginCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotFoundExceptionFault">
+        <soap:fault use="literal" name="NotFoundExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotAuthorizedExceptionFault">
+        <soap:fault use="literal" name="NotAuthorizedExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="NotNewestPlaceExceptionFault">
+        <soap:fault use="literal" name="NotNewestPlaceExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PlaceService">
+    <wsdl:port name="BasicHttpBinding_IPlaceService" binding="tns:BasicHttpBinding_IPlaceService">
+      <soap:address location="http://localhost:64970/Services/PlaceService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
