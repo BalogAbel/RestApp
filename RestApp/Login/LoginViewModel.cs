@@ -1,6 +1,7 @@
 ﻿using System.ServiceModel;
-using System.Windows;
+using System.Windows.Controls;
 using Caliburn.Micro;
+using RestApp.Register;
 using RestApp.UserService;
 using RestApp.Util;
 
@@ -8,18 +9,14 @@ namespace RestApp.Login
 {
     public class LoginViewModel : Screen
     {
-        private string _password;
+
+        #region Properties
+        private string _message;
 
 
         private string _username;
+        private PasswordBox _passwordBox;
 
-        public LoginViewModel()
-        {
-            Success = false;
-            DisplayName = "RestApp - Login";
-            Username = "abel";
-            Password = "pass";
-        }
 
         public bool Success { get; set; }
 
@@ -33,14 +30,29 @@ namespace RestApp.Login
             }
         }
 
-        public string Password
+        public string Message
         {
-            get { return _password; }
+            get { return _message; }
             set
             {
-                _password = value;
-                NotifyOfPropertyChange(() => Password);
+                _message = value;
+                NotifyOfPropertyChange(() => Message);
             }
+        }
+        #endregion
+
+        public LoginViewModel()
+        {
+            Success = false;
+            DisplayName = "RestApp - Login";
+        }
+
+        protected override void OnViewAttached(object view, object context)
+        {
+            base.OnViewAttached(view, context);
+            _passwordBox = ((LoginView)view).Password;
+            Username = "abel";
+            _passwordBox.Password = "pass";
         }
 
         public async void Login()
@@ -49,17 +61,24 @@ namespace RestApp.Login
             {
                 try
                 {
-                    var result = await service.LoginAsync(Username, Password);
+                    var result = await service.LoginAsync(Username, Helper.Hash(_passwordBox.Password));
                     AppData.User = result;
                     Success = true;
                     TryClose();
                 }
                 catch (FaultException<BadLoginCredentialsException>)
                 {
-                    Password = null;
-                    MessageBox.Show($"Unsuccessfull login with username: {Username}");
+                    _passwordBox.Password = "";
+                    Message = "Username or password is invalid";
                 }
             }
+        }
+
+        public void Register()
+        {
+            var windowManager = IoC.Get<IWindowManager>();
+            var vm = new RegisterViewModel();
+            windowManager.ShowDialog(vm);
         }
     }
 }

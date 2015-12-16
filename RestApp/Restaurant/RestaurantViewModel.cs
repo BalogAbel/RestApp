@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,15 +11,121 @@ using RestApp.ReservationService;
 using RestApp.Restaurant.AddRestaurant;
 using RestApp.RestaurantService;
 using RestApp.Util;
-using RestaurantDto = RestApp.RestaurantService.RestaurantDto;
+using BadLoginCredentialsException = RestApp.RestaurantService.BadLoginCredentialsException;
+using NotAuthorizedException = RestApp.PlaceService.NotAuthorizedException;
+using NotFoundException = RestApp.PlaceService.NotFoundException;
 
 namespace RestApp.Restaurant
 {
     [Export(typeof (RestaurantViewModel))]
     public class RestaurantViewModel : Screen
     {
-        private byte[,] _place = new byte[50, 50];
         private Grid _gridPlace;
+        private byte[,] _place = new byte[50, 50];
+
+        public RestaurantViewModel()
+        {
+            Init();
+        }
+
+        protected override void OnViewAttached(object view, object context)
+        {
+            base.OnViewAttached(view, context);
+            _gridPlace = ((RestaurantView) view).GridPlace;
+            InitGrid();
+        }
+
+        private void InitGrid()
+        {
+            var first = true;
+            _gridPlace.ColumnDefinitions.Clear();
+            _gridPlace.RowDefinitions.Clear();
+            _gridPlace.Width = _place.GetLength(0)*10;
+            _gridPlace.Height = _place.GetLength(1)*10;
+
+            for (var i = 0; i < _place.GetLength(0); i++)
+            {
+                _gridPlace.ColumnDefinitions.Add(new ColumnDefinition());
+                for (var j = 0; j < _place.GetLength(1); j++)
+                {
+                    if (first) _gridPlace.RowDefinitions.Add(new RowDefinition());
+                    var border = new Border();
+                    border.SetValue(Grid.RowProperty, i);
+                    border.SetValue(Grid.ColumnProperty, j);
+                    border.MouseLeftButtonUp += ChangeToSeat;
+                    border.MouseRightButtonUp += ChangeToTable;
+                    border.Style = _gridPlace.FindResource("Empty") as Style;
+                    _gridPlace.Children.Add(border);
+                }
+                first = false;
+            }
+        }
+
+
+        public async void Init()
+        {
+            using (var svc = new RestaurantServiceClient())
+            {
+                Restaurants =
+                    new BindableCollection<RestaurantDto>(await svc.GetMyRestaurantsAsync(AppData.User.Token));
+            }
+        }
+
+        public void AddRestaurant()
+        {
+            var result = IoC.Get<IWindowManager>().ShowDialog(new AddRestaurantViewModel());
+            if (result.HasValue && result.Value) Init();
+        }
+
+        private async void RefreshPlaces()
+        {
+            using (var svc = new PlaceServiceClient())
+            {
+                Places = new BindableCollection<PlaceDto>(await svc.GetPlacesForRestaurantAsync(SelectedRestaurant.Id));
+                var lastPlace = (from p in Places where p.To == null select p).SingleOrDefault();
+                FromDate = lastPlace?.From.AddDays(1) ?? DateTime.Now;
+            }
+        }
+
+        private async void RefreshReservations()
+        {
+            using (var svc = new ReservationServiceClient())
+            {
+
+                Reservations = new BindableCollection<ReservationDto>(await svc.GetForPlaceAsync(SelectedPlace.Id));
+            }
+        }
+
+
+        public async void SavePlace()
+        {
+            var strPlace = "";
+            for (var i = 0; i < _place.GetLength(0); i++)
+            {
+                for (var j = 0; j < _place.GetLength(1); j++)
+                {
+                    strPlace += _place[i, j].ToString();
+                    if (j != _place.GetLength(1) - 1) strPlace += ",";
+                }
+
+                if (i != _place.GetLength(0) - 1) strPlace += ";";
+            }
+            using (var svc = new PlaceServiceClient())
+            {
+                try
+                {
+                    await svc.AddAsync(strPlace, FromDate, SelectedRestaurant.Id, AppData.User.Token);
+                }
+                catch (FaultException<NotNewestPlaceException>)
+                {
+                    MessageBox.Show("There is a newer place, please change its date", "Newer place found",
+                        MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+            }
+            RefreshPlaces();
+            _place = new byte[50, 50];
+            InitGrid();
+        }
 
         #region Properties
 
@@ -69,7 +176,7 @@ namespace RestApp.Restaurant
             {
                 _selectedPlace = value;
                 NotifyOfPropertyChange(() => SelectedPlace);
-                RefreshReservations();
+                if(SelectedPlace != null) RefreshReservations();
             }
         }
 
@@ -102,109 +209,14 @@ namespace RestApp.Restaurant
         public DateTime FromDate
         {
             get { return _fromDate; }
-            set { _fromDate = value; NotifyOfPropertyChange(() => FromDate); }
+            set
+            {
+                _fromDate = value;
+                NotifyOfPropertyChange(() => FromDate);
+            }
         }
-        
 
         #endregion
-
-        public RestaurantViewModel()
-        {
-            Init();
-        }
-
-        protected override void OnViewAttached(object view, object context)
-        {
-            base.OnViewAttached(view, context);
-            _gridPlace = ((RestaurantView) view).GridPlace;
-            InitGrid();
-        }
-
-        private void InitGrid()
-        {
-            var first = true;
-                _gridPlace.ColumnDefinitions.Clear();
-                _gridPlace.RowDefinitions.Clear();
-                _gridPlace.Width = _place.GetLength(0)*10;
-                _gridPlace.Height = _place.GetLength(1)*10;
-
-            for (var i = 0; i < _place.GetLength(0); i++)
-            {
-                _gridPlace.ColumnDefinitions.Add(new ColumnDefinition());
-                for (var j = 0; j < _place.GetLength(1); j++)
-                {
-                    if (first) _gridPlace.RowDefinitions.Add(new RowDefinition());
-                    var border = new Border();
-                    border.SetValue(Grid.RowProperty, i);
-                    border.SetValue(Grid.ColumnProperty, j);
-                    border.MouseLeftButtonUp += ChangeToSeat;
-                    border.MouseRightButtonUp += ChangeToTable;
-                    border.Style = _gridPlace.FindResource("Empty") as Style;
-                    _gridPlace.Children.Add(border);
-                }
-                first = false;
-            }
-
-        }
-
-
-        public void Init()
-        {
-            using (var svc = new RestaurantServiceClient())
-            {
-                Restaurants =
-                    new BindableCollection<RestaurantDto>(svc.GetMyRestaurants(AppData.User.Token));
-            }
-        }
-
-        public void AddRestaurant()
-        {
-            var result = IoC.Get<IWindowManager>().ShowDialog(new AddRestaurantViewModel());
-            if (result.HasValue && result.Value) Init();
-        }
-
-        private void RefreshPlaces()
-        {
-            using (var svc = new PlaceServiceClient())
-            {
-                Places = new BindableCollection<PlaceDto>(svc.GetPlacesForRestaurant(SelectedRestaurant.Id).ToList());
-                var lastPlace = (from p in Places where p.To == null select p).SingleOrDefault();
-                FromDate = lastPlace?.From.AddDays(1) ?? DateTime.Now;
-            }
-        }
-
-        private void RefreshReservations()
-        {
-            using (var svc = new ReservationServiceClient())
-            {
-                var res = svc.GetForPlace(SelectedPlace.Id);
-                Reservations = new BindableCollection<ReservationDto>(res);
-            }
-        }
-
-
-        public void SavePlace()
-        {
-            var strPlace = "";
-            for (var i = 0; i < _place.GetLength(0); i++)
-            {
-                for (var j = 0; j < _place.GetLength(1); j++)
-                {
-                    strPlace += _place[i,j].ToString();
-                    if (j != _place.GetLength(1)-1) strPlace += ",";
-
-                }
-
-                if (i != _place.GetLength(0)-1) strPlace += ";";
-            }
-            using (var svc = new PlaceServiceClient())
-            {
-                svc.Add(strPlace, FromDate, SelectedRestaurant.Id, AppData.User.Token);
-            }
-            RefreshPlaces();
-            _place = new byte[50,50];
-            InitGrid();
-        }
 
         #region PlaceHelpers
 
@@ -247,7 +259,7 @@ namespace RestApp.Restaurant
                 _place[row, column] = 0;
             }
         }
-        #endregion
 
+        #endregion
     }
 }

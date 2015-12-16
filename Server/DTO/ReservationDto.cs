@@ -28,7 +28,7 @@ namespace Server.DTO
                 Id = reservation.Id,
                 Guest = reservation.Guest.Name,
                 Restaurant = reservation.Place.Restaurant.Name,
-                Seats = reservation.Seats,
+                Seats = reservation.Seats.Select(seat => new Tuple<int, int>(seat.Column, seat.Row)).ToList(),
                 From = reservation.From,
                 To = reservation.To
             };

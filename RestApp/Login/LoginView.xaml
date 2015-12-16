@@ -9,10 +9,10 @@
 
     <StackPanel VerticalAlignment="Center" Margin="0,20,0,40">
         <TextBlock TextAlignment="Center" FontSize="23" Margin="0,0,0,0" TextWrapping="Wrap">Welcome to RestApp, please log in!</TextBlock>
-        <TextBlock Height="30" x:Name="Message" />
+        <TextBlock Height="30" x:Name="Message" TextAlignment="Center" Foreground="Red"/>
         <TextBox Width="160" Margin="5" controls:TextBoxHelper.Watermark="username" x:Name="Username" />
         <PasswordBox Width="160" Margin="5,5,5,10" controls:TextBoxHelper.Watermark="Password" x:Name="Password" />
         <Button Width="80" x:Name="Login">Login</Button>
-        <Button Width="80" Margin="20">Register</Button>
+        <Button Width="80" Margin="20" x:Name="Register">Register</Button>
     </StackPanel>
 </controls:MetroWindow>

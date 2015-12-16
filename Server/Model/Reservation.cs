@@ -11,7 +11,7 @@ namespace Server.Model
 
         public Place Place { get; set; }
 
-        public IEnumerable<Tuple<int, int>> Seats { get; set; }
+        public ICollection<Seat> Seats { get; set; }
 
         public User Guest { get; set; }
 

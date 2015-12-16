@@ -15,6 +15,6 @@ namespace Server.Model
 
         public DateTime? To { get; set; }
 
-        public IEnumerable<Reservation> Reservations { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }

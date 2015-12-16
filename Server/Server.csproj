@@ -108,6 +108,7 @@
     <Compile Include="Exceptions\SeatsAreBusyException.cs" />
     <Compile Include="Model\Place.cs" />
     <Compile Include="Model\Reservation.cs" />
+    <Compile Include="Model\Seat.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Restaurant.cs" />
     <Compile Include="Model\RestAppDbContext.cs" />

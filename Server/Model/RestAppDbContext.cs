@@ -27,5 +27,6 @@ namespace Server.Model
         public virtual DbSet<Restaurant> Restaurants { get; set; }
         public virtual DbSet<Reservation> Reservations { get; set; }
         public virtual DbSet<Place> Places { get; set; }
+        public virtual DbSet<Seat> Seats { get; set; }
     }
 }

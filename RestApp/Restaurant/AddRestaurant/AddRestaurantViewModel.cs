@@ -25,11 +25,11 @@ namespace RestApp.Restaurant.AddRestaurant
             DisplayName = "Add restaurant";
         }
 
-        public void Add()
+        public async void Add()
         {
             using (var svc = new RestaurantServiceClient())
             {
-                svc.AddRestaurant(RestaurantName, AppData.User.Token);
+                await svc.AddRestaurantAsync(RestaurantName, AppData.User.Token);
                 TryClose(true);
             }
         }

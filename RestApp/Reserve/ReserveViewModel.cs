@@ -8,22 +8,16 @@ using System.Windows.Input;
 using Caliburn.Micro;
 using RestApp.PlaceService;
 using RestApp.ReservationService;
-using RestApp.Restaurant;
 using RestApp.RestaurantService;
 using RestApp.Util;
-using RestaurantDto = RestApp.RestaurantService.RestaurantDto;
 
 namespace RestApp.Reserve
 {
     [Export(typeof (ReserveViewModel))]
     public class ReserveViewModel : Screen
     {
-        private List<Tuple<int, int>> _seats; 
-        private byte[,] _place;
-
-        private Grid _gridPlace;
-
         #region Properties
+
         private IObservableCollection<RestaurantDto> _restaurants;
 
         public IObservableCollection<RestaurantDto> Restaurants
@@ -103,7 +97,11 @@ namespace RestApp.Reserve
         public DateTime FromDate
         {
             get { return _fromDate; }
-            set { _fromDate = value; NotifyOfPropertyChange(() => FromDate); }
+            set
+            {
+                _fromDate = value;
+                NotifyOfPropertyChange(() => FromDate);
+            }
         }
 
         private DateTime _toDate;
@@ -111,43 +109,54 @@ namespace RestApp.Reserve
         public DateTime ToDate
         {
             get { return _toDate; }
-            set { _toDate = value; NotifyOfPropertyChange(() => ToDate); }
+            set
+            {
+                _toDate = value;
+                NotifyOfPropertyChange(() => ToDate);
+            }
         }
 
         #endregion
+
+        private Grid _gridPlace;
+        private byte[,] _place;
+        private List<Tuple<int, int>> _seats;
 
         public ReserveViewModel()
         {
             Init();
         }
 
-        public void Init()
+        public async void Init()
         {
-            using (var svc = new RestaurantServiceClient())
+            using (var restaurantSvc = new RestaurantServiceClient())
+            using (var reservationSvc = new ReservationServiceClient())
             {
                 Restaurants =
-                    new BindableCollection<RestaurantDto>(svc.GetMyRestaurants(AppData.User.Token));
+                    new BindableCollection<RestaurantDto>(await restaurantSvc.GetMyRestaurantsAsync(AppData.User.Token));
+                Reservations =
+                    new BindableCollection<ReservationDto>(await reservationSvc.GetForUserAsync(AppData.User.Token));
             }
         }
+
         protected override void OnViewAttached(object view, object context)
         {
             base.OnViewAttached(view, context);
-            _gridPlace = ((ReserveView)view).GridPlace;
+            _gridPlace = ((ReserveView) view).GridPlace;
         }
 
-        private void InitGrid()
+        private async void InitGrid()
         {
             _seats = new List<Tuple<int, int>>();
             ConvertPlace(SelectedPlace.Seats);
             ReservationDto[] reservations;
             using (var svc = new ReservationServiceClient())
             {
-
-                reservations = svc.GetForPlace(SelectedPlace.Id).
-                    Where( r => 
-                            r.From > FromDate && r.From < ToDate ||
-                            r.To > FromDate && r.To < ToDate
-                        ).ToArray();
+                reservations = (await svc.GetForPlaceAsync(SelectedPlace.Id)).Where(r =>
+                    r.From >= FromDate && r.From <= ToDate ||
+                    r.To >= FromDate && r.To <= ToDate ||
+                    r.From <= FromDate && r.To >= ToDate
+                    ).ToArray();
             }
             foreach (var reservation in reservations)
             {
@@ -159,8 +168,8 @@ namespace RestApp.Reserve
             var first = true;
             _gridPlace.ColumnDefinitions.Clear();
             _gridPlace.RowDefinitions.Clear();
-            _gridPlace.Width = _place.GetLength(0) * 10;
-            _gridPlace.Height = _place.GetLength(1) * 10;
+            _gridPlace.Width = _place.GetLength(0)*10;
+            _gridPlace.Height = _place.GetLength(1)*10;
 
             for (var i = 0; i < _place.GetLength(0); i++)
             {
@@ -171,17 +180,18 @@ namespace RestApp.Reserve
                     var border = new Border();
                     border.SetValue(Grid.RowProperty, i);
                     border.SetValue(Grid.ColumnProperty, j);
-                    border.MouseLeftButtonUp += ReserveSeat;;
+                    border.MouseLeftButtonUp += ReserveSeat;
+                    ;
 
-                    var style = _place[i, j] == 0 ? "Empty" : _place[i, j] == 1 ? "Seat" : _place[i, j] == 2 ? "Table" : "Reserved"; 
+                    var style = _place[i, j] == 0
+                        ? "Empty"
+                        : _place[i, j] == 1 ? "Seat" : _place[i, j] == 2 ? "Table" : "Reserved";
                     border.Style = _gridPlace.FindResource(style) as Style;
                     _gridPlace.Children.Add(border);
                 }
                 first = false;
             }
-            
         }
-
 
 
         public void SaveDate()
@@ -195,40 +205,43 @@ namespace RestApp.Reserve
             {
                 svc.Add(SelectedPlace.Id, _seats.ToArray(), FromDate, ToDate, AppData.User.Token);
                 InitGrid();
+                RefreshReservations();
             }
         }
 
-        private void RefreshPlaces()
+        private async void RefreshPlaces()
         {
             using (var svc = new PlaceServiceClient())
             {
-                Places = new BindableCollection<PlaceDto>(svc.GetPlacesForRestaurant(SelectedRestaurant.Id).ToList());
+                Places = new BindableCollection<PlaceDto>((await  svc.GetPlacesForRestaurantAsync(SelectedRestaurant.Id)).ToList());
                 var lastPlace = (from p in Places where p.To == null select p).SingleOrDefault();
                 FromDate = lastPlace?.From.AddDays(1) ?? DateTime.Now;
+                ToDate = FromDate.AddHours(2);
             }
         }
 
 
-        private void RefreshReservations()
+        private async void RefreshReservations()
         {
             using (var svc = new ReservationServiceClient())
             {
-                Reservations = new BindableCollection<ReservationDto>(svc.GetForPlace(SelectedPlace.Id).ToList());
+                Reservations = new BindableCollection<ReservationDto>((await svc.GetForPlaceAsync(SelectedPlace.Id)).ToList());
                 var lastPlace = (from p in Places where p.To == null select p).SingleOrDefault();
                 FromDate = lastPlace?.From.AddDays(1) ?? DateTime.Now;
+                ToDate = FromDate.AddHours(2);
             }
         }
 
         private void ConvertPlace(string place)
         {
-            _place = new byte[50,50];
+            _place = new byte[50, 50];
             var rows = place.Split(';');
             for (var i = 0; i < rows.Length; i++)
             {
                 var cols = rows[i].Split(',');
                 for (var j = 0; j < cols.Length; j++)
                 {
-                    _place[i,j] = byte.Parse(cols[j]);
+                    _place[i, j] = byte.Parse(cols[j]);
                 }
             }
         }
@@ -239,15 +252,15 @@ namespace RestApp.Reserve
             var border = sender as Border;
             if (border == null) return;
 
-            var row = (int)border.GetValue(Grid.RowProperty);
-            var column = (int)border.GetValue(Grid.ColumnProperty);
+            var row = (int) border.GetValue(Grid.RowProperty);
+            var column = (int) border.GetValue(Grid.ColumnProperty);
             var position = _place[row, column];
 
             if (position == 1)
             {
                 border.Style = _gridPlace.FindResource("Reserving") as Style;
                 _place[row, column] = 11;
-                _seats.Add(new Tuple<int, int>(row,column));
+                _seats.Add(new Tuple<int, int>(row, column));
                 return;
             }
             if (position == 11)
@@ -256,11 +269,7 @@ namespace RestApp.Reserve
                 _place[row, column] = 1;
                 _seats.Remove(new Tuple<int, int>(row, column));
             }
-
-           
         }
-
-
 
     }
 }

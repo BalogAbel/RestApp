@@ -5,6 +5,8 @@ using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Threading;
 using Caliburn.Micro;
 using RestApp.Login;
 
@@ -75,6 +77,25 @@ namespace RestApp
 
             Application.ShutdownMode = ShutdownMode.OnLastWindowClose;
             DisplayRootViewFor<IShell>();
+        }
+
+        protected override void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            //var windowManager = IoC.Get<IWindowManager>();
+            Execute.OnUIThread(() =>
+            {
+                var result = MessageBox.Show("An error occured, the application will exit.\n " +
+                           "Do you want to view the error details?", "Error occured", MessageBoxButton.YesNo,
+                   MessageBoxImage.Error);
+                if (result == MessageBoxResult.Yes)
+                {
+                    MessageBox.Show(e.Exception.Message, e.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Application.Shutdown();
+                }
+            });
+            Application.Shutdown();
+            base.OnUnhandledException(sender, e);
         }
     }
 }

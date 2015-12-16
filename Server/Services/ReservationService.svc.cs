@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.ServiceModel;
 using Server.DTO;
@@ -17,8 +18,12 @@ namespace Server.Services
             using (var ctx = new RestAppDbContext())
             {
                 return
-                    (from r in ctx.Reservations where r.Place.Restaurant.Id == restaurantId select r).ToList().Select(
-                        ReservationDto.Convert);
+                    (from r in ctx.Reservations where r.Place.Restaurant.Id == restaurantId select r)
+                        .Include(r => r.Seats)
+                        .Include(r => r.Place.Restaurant)
+                        .Include(r => r.Guest)
+                        .ToList()
+                        .Select(ReservationDto.Convert);
             }
         }
 
@@ -28,8 +33,12 @@ namespace Server.Services
             {
                 var user = TokenHelper.ValidateToken(token, ctx);
                 return
-                    (from r in ctx.Reservations where r.Guest.Id == user.Id select r).ToList().Select(
-                        ReservationDto.Convert);
+                    (from r in ctx.Reservations where r.Guest.Id == user.Id select r)
+                        .Include(r => r.Seats)
+                        .Include(r => r.Place.Restaurant)
+                        .Include(r => r.Guest)
+                        .ToList()
+                        .Select(ReservationDto.Convert);
             }
         }
 
@@ -38,8 +47,12 @@ namespace Server.Services
             using (var ctx = new RestAppDbContext())
             {
                 return
-                    (from r in ctx.Reservations where r.Place.Id == placeId select r).ToList().Select(
-                        ReservationDto.Convert);
+                    (from r in ctx.Reservations where r.Place.Id == placeId select r)
+                        .Include(r => r.Seats)
+                        .Include(r => r.Place.Restaurant)
+                        .Include(r => r.Guest)
+                        .ToList()
+                        .Select(ReservationDto.Convert);
             }
         }
 
@@ -52,23 +65,23 @@ namespace Server.Services
                 var place = (from p in ctx.Places where p.Id == placeId select p).SingleOrDefault();
                 if (place == null) throw new FaultException<NotFoundException>(new NotFoundException());
                 if (fromDate >= toDate) throw new FaultException<DateOrderException>(new DateOrderException());
-                ;
                 var busy = /*(from r in ctx.Reservations where r.Place.Id ==  placeId && r.To > fromDate || r.From -*/
                     false;
                 if (busy) throw new FaultException<SeatsAreBusyException>(new SeatsAreBusyException());
 
                 if (place.From > fromDate || place.To < toDate)
                     throw new FaultException<PlaceDateException>(new PlaceDateException());
-                ;
-
-                ctx.Reservations.Add(new Reservation
+                var reservation = new Reservation
                 {
                     From = fromDate,
                     To = toDate,
                     Place = place,
-                    Guest = user,
-                    Seats = seats
-                });
+                    Guest = user
+                };
+                ctx.Reservations.Add(reservation);
+                var seatsEntity =
+                    seats.Select(t => new Seat {Column = t.Item1, Row = t.Item2, Reservation = reservation}).ToList();
+                ctx.Seats.AddRange(seatsEntity);
                 ctx.SaveChanges();
             }
         }

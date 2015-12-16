@@ -37,7 +37,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding From}" />
-                                <TextBlock> -</TextBlock>
+                                <TextBlock> - </TextBlock>
                                 <TextBlock Text="{Binding To}" />
                             </StackPanel>
                         </DataTemplate>
@@ -49,12 +49,14 @@
                     <DropShadowEffect />
                 </Separator.Effect>
             </Separator>
-            <DataGrid x:Name="Reservations">
+            <DataGrid x:Name="Reservations" AutoGenerateColumns="False"
+                      CanUserDeleteRows="False" CanUserAddRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"/>
                     <DataGridTextColumn Header="From" Binding="{Binding Path=From}"/>
                     <DataGridTextColumn Header="To" Binding="{Binding Path=To}"/>
                     <DataGridTextColumn Header="Seat#" Binding="{Binding Path=Seats.Length}"/>
+                    <DataGridTextColumn Header="Guest" Binding="{Binding Path=Guest}"/>
                 </DataGrid.Columns>
             </DataGrid>
            

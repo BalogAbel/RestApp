@@ -14,8 +14,8 @@ namespace Server.Model
 
         public string Token { get; set; }
 
-        public List<Reservation> Reservations { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
 
-        public List<Restaurant> Restaurants { get; set; }
+        public ICollection<Restaurant> Restaurants { get; set; }
     }
 }
