@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using Server.DTO;
@@ -16,7 +17,7 @@ namespace Server.Services
             using (var ctx = new RestAppDbContext())
             {
                 TokenHelper.ValidateToken(token, ctx);
-                return (from r in ctx.Restaurants select RestaurantDto.Convert(r)).ToList();
+                return  (from r in ctx.Restaurants select r).ToList().Select(RestaurantDto.Convert).ToList();
             }
         }
 
@@ -44,13 +45,14 @@ namespace Server.Services
             }
         }
 
-        public void EditRestaurant(long id, string name, string token)
+        public void EditRestaurant(long id, string name, Guid version, string token)
         {
             using (var ctx = new RestAppDbContext())
             {
                 var user = TokenHelper.ValidateToken(token, ctx);
                 var restaurantEntity = (from r in ctx.Restaurants where r.Id == id select r).FirstOrDefault();
                 if (restaurantEntity == null) throw new FaultException<NotFoundException>(new NotFoundException());
+                if(restaurantEntity.RowVersion != version) throw  new FaultException<ConcurrencyException>( new ConcurrencyException());
                 if (restaurantEntity.Owner.Id != user.Id) throw new FaultException<NotAuthorizedException>(new NotAuthorizedException());
                 restaurantEntity.Name = name;
                 ctx.SaveChanges();

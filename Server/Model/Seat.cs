@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Server.Model
 {
-    public class Seat
+    public class Seat : IVersioned
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -16,5 +16,7 @@ namespace Server.Model
         public int Row { get; set; }
 
         public Reservation Reservation { get; set; }
+
+        public Guid RowVersion { get; set; }
     }
 }

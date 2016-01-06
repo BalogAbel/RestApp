@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.Model
 {
-    public class Reservation
+    public class Reservation : IVersioned
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -18,5 +18,7 @@ namespace Server.Model
         public DateTime From { get; set; }
 
         public DateTime To { get; set; }
+
+        public Guid RowVersion { get; set; }
     }
 }

@@ -31,6 +31,9 @@ namespace RestApp.RestaurantService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PlaceField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid VersionField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -76,6 +79,19 @@ namespace RestApp.RestaurantService {
                 if ((object.ReferenceEquals(this.PlaceField, value) != true)) {
                     this.PlaceField = value;
                     this.RaisePropertyChanged("Place");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid Version {
+            get {
+                return this.VersionField;
+            }
+            set {
+                if ((this.VersionField.Equals(value) != true)) {
+                    this.VersionField = value;
+                    this.RaisePropertyChanged("Version");
                 }
             }
         }
@@ -177,6 +193,35 @@ namespace RestApp.RestaurantService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ConcurrencyException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class ConcurrencyException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RestaurantService.IRestaurantService")]
     public interface IRestaurantService {
@@ -210,10 +255,11 @@ namespace RestApp.RestaurantService {
             "ault", Name="BadLoginCredentialsException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
         [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.NotFoundException), Action="http://tempuri.org/IRestaurantService/EditRestaurantNotFoundExceptionFault", Name="NotFoundException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
         [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.NotAuthorizedException), Action="http://tempuri.org/IRestaurantService/EditRestaurantNotAuthorizedExceptionFault", Name="NotAuthorizedException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
-        void EditRestaurant(long id, string name, string token);
+        [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.ConcurrencyException), Action="http://tempuri.org/IRestaurantService/EditRestaurantConcurrencyExceptionFault", Name="ConcurrencyException", Namespace="http://schemas.datacontract.org/2004/07/Server.Exceptions")]
+        void EditRestaurant(long id, string name, System.Guid version, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRestaurantService/EditRestaurant", ReplyAction="http://tempuri.org/IRestaurantService/EditRestaurantResponse")]
-        System.Threading.Tasks.Task EditRestaurantAsync(long id, string name, string token);
+        System.Threading.Tasks.Task EditRestaurantAsync(long id, string name, System.Guid version, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRestaurantService/DeleteRestaurant", ReplyAction="http://tempuri.org/IRestaurantService/DeleteRestaurantResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(RestApp.RestaurantService.BadLoginCredentialsException), Action="http://tempuri.org/IRestaurantService/DeleteRestaurantBadLoginCredentialsExceptio" +
@@ -278,12 +324,12 @@ namespace RestApp.RestaurantService {
             return base.Channel.AddRestaurantAsync(name, token);
         }
         
-        public void EditRestaurant(long id, string name, string token) {
-            base.Channel.EditRestaurant(id, name, token);
+        public void EditRestaurant(long id, string name, System.Guid version, string token) {
+            base.Channel.EditRestaurant(id, name, version, token);
         }
         
-        public System.Threading.Tasks.Task EditRestaurantAsync(long id, string name, string token) {
-            return base.Channel.EditRestaurantAsync(id, name, token);
+        public System.Threading.Tasks.Task EditRestaurantAsync(long id, string name, System.Guid version, string token) {
+            return base.Channel.EditRestaurantAsync(id, name, version, token);
         }
         
         public void DeleteRestaurant(RestApp.RestaurantService.RestaurantDto restaurant, string token) {

@@ -10,7 +10,7 @@
     <DockPanel Height="Auto">
         <controls:MetroAnimatedSingleRowTabControl DockPanel.Dock="Top">
             <TabItem Header="Manage Reservations">
-                <reserve:ReserveView/>
+                <reserve:ReserveView Height="465"/>
             </TabItem>
             <TabItem Header="Manage Restaurants">
                 <restaurant:RestaurantView />

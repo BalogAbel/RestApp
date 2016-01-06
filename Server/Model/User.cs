@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.Model
 {
-    public class User
+    public class User : IVersioned
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -17,5 +18,7 @@ namespace Server.Model
         public ICollection<Reservation> Reservations { get; set; }
 
         public ICollection<Restaurant> Restaurants { get; set; }
+
+        public Guid RowVersion { get; set; }
     }
 }

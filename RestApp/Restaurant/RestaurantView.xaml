@@ -25,13 +25,15 @@
                 <TextBlock Margin="0,0,20,0" Height="20">Select restaurant:</TextBlock>
                 <ComboBox x:Name="Restaurants" DisplayMemberPath="Name" Height="30" />
             </DockPanel>
-            <Separator BorderBrush="Black" Margin="0,0,0,10">
+
+            <Button x:Name="EditRestaurant" Width="200">Edit restaurant</Button>
+            <Separator BorderBrush="Black" Margin="0,10,0,10">
                 <Separator.Effect>
                     <DropShadowEffect />
                 </Separator.Effect>
             </Separator>
             <DockPanel VerticalAlignment="Center" Height="40">
-                <TextBlock Margin="0,0,20,0" Height="20">Select restaurant:</TextBlock>
+                <TextBlock Margin="0,0,20,0" Height="20">Select place:</TextBlock>
                 <ComboBox x:Name="Places" Height="30">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>

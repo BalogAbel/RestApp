@@ -1,18 +1,23 @@
-﻿<controls:MetroWindow x:Class="RestApp.Login.LoginView"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:local="clr-namespace:RestApp.Login"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      GlowBrush="{DynamicResource AccentColorBrush}"
-                      Width="277" Height="330" ResizeMode="NoResize">
+﻿<controls:MetroWindow
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="RestApp.Login.LoginView"
+    xmlns:lex="http://wpflocalizeextension.codeplex.com"
+    lex:ResxLocalizationProvider.DefaultDictionary="Resources"
+    lex:ResxLocalizationProvider.DefaultAssembly="RestApp"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    GlowBrush="{DynamicResource AccentColorBrush}"
+    Width="277" Height="330" ResizeMode="NoResize">
 
     <StackPanel VerticalAlignment="Center" Margin="0,20,0,40">
-        <TextBlock TextAlignment="Center" FontSize="23" Margin="0,0,0,0" TextWrapping="Wrap">Welcome to RestApp, please log in!</TextBlock>
-        <TextBlock Height="30" x:Name="Message" TextAlignment="Center" Foreground="Red"/>
-        <TextBox Width="160" Margin="5" controls:TextBoxHelper.Watermark="username" x:Name="Username" />
-        <PasswordBox Width="160" Margin="5,5,5,10" controls:TextBoxHelper.Watermark="Password" x:Name="Password" />
-        <Button Width="80" x:Name="Login">Login</Button>
-        <Button Width="80" Margin="20" x:Name="Register">Register</Button>
+        <TextBlock TextAlignment="Center" FontSize="23" Margin="0,0,0,0" TextWrapping="Wrap"
+                   Text="{lex:Loc LoginHeader}" />
+        <TextBlock Height="30" x:Name="Message" TextAlignment="Center" Foreground="Red" />
+        <TextBox Width="160" Margin="5" controls:TextBoxHelper.Watermark="{lex:Loc Username}" x:Name="Username" />
+        <PasswordBox Width="160" Margin="5,5,5,10" controls:TextBoxHelper.Watermark="{lex:Loc Password}"
+                     x:Name="Password" />
+        <Button Width="80" x:Name="Login" Content="{lex:Loc Login}" />
+        <Button Width="80" Margin="20" x:Name="Register" Content="{lex:Loc Register}" />
     </StackPanel>
+
 </controls:MetroWindow>

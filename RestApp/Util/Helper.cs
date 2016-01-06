@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace RestApp.Util
 {
-    class Helper
+    internal class Helper
     {
         public static string Hash(string value)
         {

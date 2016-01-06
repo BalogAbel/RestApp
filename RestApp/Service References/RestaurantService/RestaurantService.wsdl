@@ -50,6 +50,9 @@
   <wsdl:message name="IRestaurantService_EditRestaurant_NotAuthorizedExceptionFault_FaultMessage">
     <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q6:NotAuthorizedException" />
   </wsdl:message>
+  <wsdl:message name="IRestaurantService_EditRestaurant_ConcurrencyExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q7:ConcurrencyException" />
+  </wsdl:message>
   <wsdl:message name="IRestaurantService_DeleteRestaurant_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteRestaurant" />
   </wsdl:message>
@@ -57,13 +60,13 @@
     <wsdl:part name="parameters" element="tns:DeleteRestaurantResponse" />
   </wsdl:message>
   <wsdl:message name="IRestaurantService_DeleteRestaurant_BadLoginCredentialsExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q7:BadLoginCredentialsException" />
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q8:BadLoginCredentialsException" />
   </wsdl:message>
   <wsdl:message name="IRestaurantService_DeleteRestaurant_NotFoundExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q8:NotFoundException" />
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q9:NotFoundException" />
   </wsdl:message>
   <wsdl:message name="IRestaurantService_DeleteRestaurant_NotAuthorizedExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q9:NotAuthorizedException" />
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/Server.Exceptions" name="detail" element="q10:NotAuthorizedException" />
   </wsdl:message>
   <wsdl:portType name="IRestaurantService">
     <wsdl:operation name="GetAllRestaurant">
@@ -87,6 +90,7 @@
       <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurantBadLoginCredentialsExceptionFault" name="BadLoginCredentialsExceptionFault" message="tns:IRestaurantService_EditRestaurant_BadLoginCredentialsExceptionFault_FaultMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurantNotFoundExceptionFault" name="NotFoundExceptionFault" message="tns:IRestaurantService_EditRestaurant_NotFoundExceptionFault_FaultMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurantNotAuthorizedExceptionFault" name="NotAuthorizedExceptionFault" message="tns:IRestaurantService_EditRestaurant_NotAuthorizedExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRestaurantService/EditRestaurantConcurrencyExceptionFault" name="ConcurrencyExceptionFault" message="tns:IRestaurantService_EditRestaurant_ConcurrencyExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="DeleteRestaurant">
       <wsdl:input wsaw:Action="http://tempuri.org/IRestaurantService/DeleteRestaurant" message="tns:IRestaurantService_DeleteRestaurant_InputMessage" />
@@ -150,6 +154,9 @@
       </wsdl:fault>
       <wsdl:fault name="NotAuthorizedExceptionFault">
         <soap:fault use="literal" name="NotAuthorizedExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="ConcurrencyExceptionFault">
+        <soap:fault use="literal" name="ConcurrencyExceptionFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="DeleteRestaurant">

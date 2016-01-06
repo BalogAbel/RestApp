@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Server.Model
 {
-    public class Place
+    public class Place: IVersioned
     {
         public long Id { get; set; }
 
@@ -16,5 +16,7 @@ namespace Server.Model
         public DateTime? To { get; set; }
 
         public ICollection<Reservation> Reservations { get; set; }
+
+        public Guid RowVersion { get; set; }
     }
 }

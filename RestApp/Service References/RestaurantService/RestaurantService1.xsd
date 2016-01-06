@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Server.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Server.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Server.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Server.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:64970/Services/RestaurantService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfRestaurantDto">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="RestaurantDto" nillable="true" type="tns:RestaurantDto" />
@@ -11,6 +12,7 @@
       <xs:element minOccurs="0" name="Id" type="xs:long" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Place" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Version" type="ser:guid" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="RestaurantDto" nillable="true" type="tns:RestaurantDto" />

@@ -36,7 +36,7 @@ namespace RestApp.Register
 
         public RegisterViewModel()
         {
-            DisplayName = "RestApp - Registration";
+            DisplayName = LocalizationHelper.GetString("RegistrationTitle");
         }
 
         protected override void OnViewAttached(object view, object context)
@@ -50,7 +50,7 @@ namespace RestApp.Register
         {
             if (_passwordBox.Password != _passwordBox2.Password)
             {
-                Message = "Password and its confirmation does not match";
+                Message = LocalizationHelper.GetString("PasswordMatchFail");
                 return;
             }
             using (var svc = new UserServiceClient())
@@ -62,7 +62,7 @@ namespace RestApp.Register
                 }
                 catch (FaultException<AlreadyRegisteredException>)
                 {
-                    Message = "A user has been already registered with this username";
+                    Message = LocalizationHelper.GetString("AlreadyRegistered");
                 }
             }
         }

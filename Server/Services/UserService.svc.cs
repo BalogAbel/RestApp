@@ -33,8 +33,9 @@ namespace Server.Services
         {
             using (var ctx = new RestAppDbContext())
             {
-                var user =
-                    (from u in ctx.Users where u.Name == userName && u.Password == password select u).FirstOrDefault();
+                var user1 =
+                    (from u in ctx.Users where u.Name == userName && u.Password == password select u);
+                var user = user1.SingleOrDefault();
                 if (user == null)
                 {
                     throw new FaultException<BadLoginCredentialsException>(new BadLoginCredentialsException());

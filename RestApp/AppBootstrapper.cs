@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Caliburn.Micro;
 using RestApp.Login;
+using WPFLocalizeExtension.Engine;
+using WPFLocalizeExtension.Extensions;
+using WPFLocalizeExtension.Providers;
 
 namespace RestApp
 {
@@ -19,6 +23,8 @@ namespace RestApp
         public AppBootstrapper()
         {
             Initialize();
+            LocalizeDictionary.Instance.Culture = CultureInfo.CurrentCulture; ;
+            //LocalizeDictionary.Instance.Culture = new CultureInfo("en"); ;
         }
 
 

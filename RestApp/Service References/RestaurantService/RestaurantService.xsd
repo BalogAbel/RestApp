@@ -12,4 +12,8 @@
     <xs:sequence />
   </xs:complexType>
   <xs:element name="NotAuthorizedException" nillable="true" type="tns:NotAuthorizedException" />
+  <xs:complexType name="ConcurrencyException">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="ConcurrencyException" nillable="true" type="tns:ConcurrencyException" />
 </xs:schema>

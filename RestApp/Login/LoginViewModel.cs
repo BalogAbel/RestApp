@@ -1,6 +1,8 @@
-﻿using System.ServiceModel;
+﻿using System.Globalization;
+using System.ServiceModel;
 using System.Windows.Controls;
 using Caliburn.Micro;
+using RestApp.Properties;
 using RestApp.Register;
 using RestApp.UserService;
 using RestApp.Util;
@@ -44,7 +46,7 @@ namespace RestApp.Login
         public LoginViewModel()
         {
             Success = false;
-            DisplayName = "RestApp - Login";
+            DisplayName = LocalizationHelper.GetString("LoginTitle");
         }
 
         protected override void OnViewAttached(object view, object context)
@@ -69,7 +71,7 @@ namespace RestApp.Login
                 catch (FaultException<BadLoginCredentialsException>)
                 {
                     _passwordBox.Password = "";
-                    Message = "Username or password is invalid";
+                    Message = LocalizationHelper.GetString("BadLogin");
                 }
             }
         }

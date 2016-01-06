@@ -1,4 +1,5 @@
-﻿using Server.Model;
+﻿using System;
+using Server.Model;
 
 namespace Server.DTO
 {
@@ -7,6 +8,7 @@ namespace Server.DTO
         public long Id { get; set; }
         public string Name { get; set; }
         public string Place { get; set; }
+        public Guid Version { get; set; }
 
 
         public static RestaurantDto Convert(Restaurant restaurant)
@@ -14,7 +16,8 @@ namespace Server.DTO
             return new RestaurantDto
             {
                 Id = restaurant.Id,
-                Name = restaurant.Name
+                Name = restaurant.Name,
+                Version = restaurant.RowVersion
             };
         }
     }

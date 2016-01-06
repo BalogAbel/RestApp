@@ -9,6 +9,7 @@ using Caliburn.Micro;
 using RestApp.PlaceService;
 using RestApp.ReservationService;
 using RestApp.Restaurant.AddRestaurant;
+using RestApp.Restaurant.EditRestaurant;
 using RestApp.RestaurantService;
 using RestApp.Util;
 using BadLoginCredentialsException = RestApp.RestaurantService.BadLoginCredentialsException;
@@ -77,8 +78,20 @@ namespace RestApp.Restaurant
             if (result.HasValue && result.Value) Init();
         }
 
+        public void EditRestaurant()
+        {
+            if (SelectedRestaurant == null) return;
+            var result = IoC.Get<IWindowManager>().ShowDialog(new EditRestaurantViewModel(SelectedRestaurant));
+            if (result.HasValue && result.Value) Init();
+        }
+
         private async void RefreshPlaces()
         {
+            if (SelectedRestaurant == null)
+            {
+                Places = new BindableCollection<PlaceDto>();
+                return;
+            }
             using (var svc = new PlaceServiceClient())
             {
                 Places = new BindableCollection<PlaceDto>(await svc.GetPlacesForRestaurantAsync(SelectedRestaurant.Id));

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using Server.DTO;
 using Server.Exceptions;
@@ -26,7 +27,8 @@ namespace Server.Services
         [FaultContract(typeof(BadLoginCredentialsException))]
         [FaultContract(typeof(NotFoundException))]
         [FaultContract(typeof(NotAuthorizedException))]
-        void EditRestaurant(long id, string name, string token);
+        [FaultContract(typeof(ConcurrencyException))]
+        void EditRestaurant(long id, string name, Guid version, string token);
 
         [OperationContract]
         [FaultContract(typeof(BadLoginCredentialsException))]
